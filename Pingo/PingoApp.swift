@@ -11,7 +11,8 @@ import SwiftUI
 struct PingoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            let feedBuilder = FeedBuilder()
+            feedBuilder.buildFeedView()
         }
     }
 }
