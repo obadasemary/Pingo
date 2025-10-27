@@ -38,7 +38,7 @@ struct CharacterView: View {
             VStack(alignment: .leading) {
                 Text(character.name)
                     .font(.title)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.primary)
 
                 Text(character.species ?? "")
                     .font(.subheadline)
