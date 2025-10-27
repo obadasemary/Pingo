@@ -14,7 +14,7 @@ protocol NetworkServiceProtocol {
 class NetworkService {
     private let session: URLSession
     
-    nonisolated init(session: URLSession = .shared) {
+    init(session: URLSession = .shared) {
         self.session = session
     }
 }
