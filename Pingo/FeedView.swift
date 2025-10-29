@@ -16,13 +16,18 @@ struct FeedView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(viewModel.characters, id: \.id) { character in
-                        CharacterView(character: character)
+                        NavigationLink {
+                            FeedViewDetails(character: character)
+                        } label: {
+                            CharacterView(character: character)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
             }
             .navigationTitle("NewFeeds")
             .task {
-                viewModel.loadData()
+                await viewModel.loadData()
             }
         }
     }
