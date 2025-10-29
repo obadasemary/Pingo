@@ -34,7 +34,7 @@ struct PageInfoResponse: Decodable, Sendable {
     }
 }
 
-struct CharacterResponse: Decodable, Identifiable, Sendable {
+struct CharacterResponse: Decodable, Identifiable, Equatable, Sendable {
     
     let id: Int
     let name: String
