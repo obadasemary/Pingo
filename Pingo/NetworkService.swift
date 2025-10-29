@@ -11,7 +11,7 @@ protocol NetworkServiceProtocol {
     func execute<T: Decodable>(_ request: URLRequest, responseModel: T.Type) async throws -> T
 }
 
-class NetworkService {
+final class NetworkService {
     private let session: URLSession
     
     init(session: URLSession = .shared) {
