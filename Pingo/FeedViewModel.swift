@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 @Observable
 final class FeedViewModel {
     
@@ -19,10 +20,11 @@ final class FeedViewModel {
         self.feedUseCase = feedUseCase
     }
     
-    func loadData() {
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            try await self.fetchCharacters()
+    func loadData() async {
+        do {
+            try await fetchCharacters()
+        } catch {
+            print("Error: \(error.localizedDescription)")
         }
     }
     
@@ -30,11 +32,7 @@ final class FeedViewModel {
         
         guard let url else { return }
         
-        do {
-            let reponse = try await feedUseCase.fetchFeed(url: url)
-            characters = reponse.results
-        } catch {
-            print("Error: \(error.localizedDescription)")
-        }
+        let response = try await feedUseCase.fetchFeed(url: url)
+        characters = response.results
     }
 }
