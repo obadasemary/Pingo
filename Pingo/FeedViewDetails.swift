@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct FeedViewDetails: View {
-    
     let character: CharacterResponse
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -20,7 +19,7 @@ struct FeedViewDetails: View {
                         case .empty:
                             ProgressView()
                                 .frame(width: 200, height: 200)
-                        case .success(let image):
+                        case let .success(image):
                             image
                                 .resizable()
                                 .scaledToFill()
@@ -42,7 +41,7 @@ struct FeedViewDetails: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundStyle(.primary)
-                    
+
                     if let species = character.species, !species.isEmpty {
                         Text(species)
                             .font(.title3)

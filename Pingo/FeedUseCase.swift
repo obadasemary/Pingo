@@ -12,16 +12,14 @@ protocol FeedUseCaseProtocol {
 }
 
 final class FeedUseCase {
-    
     private let feedRepository: FeedRepositoryProtocol
-    
+
     init(feedRepository: FeedRepositoryProtocol) {
         self.feedRepository = feedRepository
     }
 }
 
 extension FeedUseCase: FeedUseCaseProtocol {
-    
     func fetchFeed(url: URL) async throws -> CharactersPageResponse {
         try await feedRepository.fetchFeed(url: url)
     }

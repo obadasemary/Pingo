@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct CharacterView: View {
-    
     let character: CharacterResponse
     private let imageSize: CGFloat = 100
-    
+
     var body: some View {
         HStack(alignment: .top) {
             AsyncImage(url: character.image) { phase in
@@ -19,7 +18,7 @@ struct CharacterView: View {
                 case .empty:
                     ProgressView()
                         .frame(width: imageSize, height: imageSize)
-                case .success(let image):
+                case let .success(image):
                     image
                         .resizable()
                         .scaledToFill()
@@ -45,7 +44,7 @@ struct CharacterView: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
-            
+
             Spacer()
         }
         .padding()

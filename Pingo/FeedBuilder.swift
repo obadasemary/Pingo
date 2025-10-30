@@ -9,9 +9,8 @@ import SwiftUI
 
 @Observable
 final class FeedBuilder {
-    
     func buildFeedView(usingMock: Bool = false) -> some View {
-        var feedRepository: FeedRepositoryProtocol!
+        let feedRepository: FeedRepositoryProtocol
         if usingMock {
             feedRepository = MockFeedRepository()
         } else {
