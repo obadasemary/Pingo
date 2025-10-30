@@ -40,6 +40,17 @@ struct FeedView: View {
                 }
             }
             .navigationTitle("NewFeeds")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "gear")
+                            .font(.headline)
+                            .foregroundStyle(.red)
+                    }
+                }
+            }
             .task {
                 await viewModel.loadData()
             }
