@@ -15,6 +15,7 @@ final class FeedViewModel {
     let url = URL(string: "https://rickandmortyapi.com/api/character")
     
     private(set) var characters: [CharacterResponse] = []
+    private(set) var errorMessage: String?
     
     init(feedUseCase: FeedUseCaseProtocol) {
         self.feedUseCase = feedUseCase
@@ -22,9 +23,10 @@ final class FeedViewModel {
     
     func loadData() async {
         do {
+            errorMessage = nil
             try await fetchCharacters()
         } catch {
-            print("Error: \(error.localizedDescription)")
+            errorMessage = error.localizedDescription
         }
     }
     

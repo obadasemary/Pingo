@@ -25,6 +25,20 @@ struct FeedView: View {
                     }
                 }
             }
+            .overlay(alignment: .top) {
+                if let message = viewModel.errorMessage {
+                    Text(message)
+                        .font(.footnote)
+                        .foregroundStyle(.red)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal)
+                        .padding(.vertical, 12)
+                        .background(.thinMaterial)
+                        .shadow(radius: 2)
+                        .padding()
+                }
+            }
             .navigationTitle("NewFeeds")
             .task {
                 await viewModel.loadData()
