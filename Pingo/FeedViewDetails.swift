@@ -15,7 +15,7 @@ struct FeedViewDetails: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 ZStack(alignment: .topLeading) {
-                    AsyncImage(url: character.image) { phase in
+                    CachedAsyncImage(url: character.image) { phase in
                         switch phase {
                         case .empty:
                             ProgressView()
@@ -30,8 +30,6 @@ struct FeedViewDetails: View {
                                 .scaledToFit()
                                 .frame(width: 200, height: 200)
                                 .foregroundStyle(.secondary)
-                        @unknown default:
-                            EmptyView()
                         }
                     }
                     .frame(maxWidth: .infinity)

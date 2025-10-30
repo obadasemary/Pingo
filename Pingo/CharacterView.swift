@@ -13,7 +13,7 @@ struct CharacterView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            AsyncImage(url: character.image) { phase in
+            CachedAsyncImage(url: character.image) { phase in
                 switch phase {
                 case .empty:
                     ProgressView()
@@ -30,8 +30,6 @@ struct CharacterView: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100)
                         .foregroundColor(.gray)
-                @unknown default:
-                    EmptyView()
                 }
             }
 
@@ -51,7 +49,7 @@ struct CharacterView: View {
         .background {
             Color(UIColor { traitCollection in
                 traitCollection.userInterfaceStyle == .dark ?
-                UIColor.white : UIColor.gray
+                UIColor.white : UIColor.red
             }).opacity(0.5)
         }
         .cornerRadius(16)
@@ -69,4 +67,3 @@ struct CharacterView: View {
         )
     )
 }
-
