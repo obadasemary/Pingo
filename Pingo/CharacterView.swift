@@ -13,7 +13,7 @@ struct CharacterView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            CachedAsyncImage(url: character.image) { phase in
+            AsyncImage(url: character.image) { phase in
                 switch phase {
                 case .empty:
                     ProgressView()
@@ -30,6 +30,8 @@ struct CharacterView: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100)
                         .foregroundColor(.gray)
+                @unknown default:
+                    EmptyView()
                 }
             }
 
