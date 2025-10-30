@@ -10,6 +10,7 @@ import SwiftUI
 struct CharacterView: View {
     
     let character: CharacterResponse
+    private let imageSize: CGFloat = 100
     
     var body: some View {
         HStack(alignment: .top) {
@@ -17,18 +18,18 @@ struct CharacterView: View {
                 switch phase {
                 case .empty:
                     ProgressView()
-                        .frame(width: 100, height: 100)
+                        .frame(width: imageSize, height: imageSize)
                 case .success(let image):
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 100, height: 100)
+                        .frame(width: imageSize, height: imageSize)
                         .cornerRadius(8)
                 case .failure:
                     Image(systemName: "photo.fill")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 100, height: 100)
+                        .frame(width: imageSize, height: imageSize)
                         .foregroundColor(.gray)
                 @unknown default:
                     EmptyView()
@@ -49,10 +50,7 @@ struct CharacterView: View {
         }
         .padding()
         .background {
-            Color(UIColor { traitCollection in
-                traitCollection.userInterfaceStyle == .dark ?
-                UIColor.white : UIColor.red
-            }).opacity(0.5)
+            Color(UIColor.secondarySystemBackground).opacity(0.5)
         }
         .cornerRadius(16)
         .padding(.horizontal)
