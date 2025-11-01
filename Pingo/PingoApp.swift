@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct PingoApp: App {
+    @State private var feedBuilder = FeedBuilder()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            feedBuilder.buildFeedView()
         }
     }
 }

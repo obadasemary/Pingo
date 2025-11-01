@@ -1,0 +1,12 @@
+/.xcuserdata/
+/Pingo.xcodeproj/xcuserdata/
+*.xcuserdatad/
+/DerivedData/
+/.DS_Store
+
+# xcode-build-server files
+buildServer.json
+.compile
+
+# Local build artifacts
+.build/
