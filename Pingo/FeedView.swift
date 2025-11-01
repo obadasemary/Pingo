@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct FeedView: View {
-    
     @State var viewModel: FeedViewModel
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -43,7 +42,7 @@ struct FeedView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        
+                        // TODO: Implement settings action
                     } label: {
                         Image(systemName: "gear")
                             .font(.headline)

@@ -5,19 +5,18 @@
 //  Created by Abdelrahman Mohamed on 27.10.2025.
 //
 
-import Testing
 import Foundation
 @testable import Pingo
+import Testing
 
 @Suite
 struct FeedViewModelTests {
-    
     @MainActor
     @Test
     func fetchCharacters_populatesCharacters_onSuccess() async throws {
         let expectedCharacters = [
             CharacterResponse(id: 1, name: "Rick", species: "Human", image: nil),
-            CharacterResponse(id: 2, name: "Morty", species: "Alien", image: nil)
+            CharacterResponse(id: 2, name: "Morty", species: "Alien", image: nil),
         ]
         let mockUseCase = MockFeedUseCase(result: .success(
             CharactersPageResponse(
@@ -26,42 +25,41 @@ struct FeedViewModelTests {
             )
         ))
         let viewModel = FeedViewModel(feedUseCase: mockUseCase)
-        
+
         await viewModel.loadData()
-        
+
         #expect(viewModel.characters == expectedCharacters)
     }
-    
+
     @MainActor
     @Test
     func fetchCharacters_keepsCharactersEmpty_onFailure() async throws {
         let mockUseCase = MockFeedUseCase(result: .failure(MockError.stub))
         let viewModel = FeedViewModel(feedUseCase: mockUseCase)
-        
+
         await viewModel.loadData()
-        
+
         #expect(viewModel.characters.isEmpty)
     }
 }
 
 private extension FeedViewModelTests {
-    
     enum MockError: Error {
         case stub
     }
-    
+
     final class MockFeedUseCase: FeedUseCaseProtocol {
         private let result: Result<CharactersPageResponse, Error>
-        
+
         init(result: Result<CharactersPageResponse, Error>) {
             self.result = result
         }
-        
-        func fetchFeed(url: URL) async throws -> CharactersPageResponse {
+
+        func fetchFeed(url _: URL) async throws -> CharactersPageResponse {
             switch result {
-            case .success(let response):
+            case let .success(response):
                 return response
-            case .failure(let error):
+            case let .failure(error):
                 throw error
             }
         }

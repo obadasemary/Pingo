@@ -12,16 +12,14 @@ protocol FeedRepositoryProtocol {
 }
 
 final class FeedRepository {
-    
     private let networkServiceProtocol: NetworkServiceProtocol
-    
+
     init(networkServiceProtocol: NetworkServiceProtocol) {
         self.networkServiceProtocol = networkServiceProtocol
     }
 }
 
 extension FeedRepository: FeedRepositoryProtocol {
-    
     func fetchFeed(url: URL) async throws -> CharactersPageResponse {
         try await networkServiceProtocol
             .execute(

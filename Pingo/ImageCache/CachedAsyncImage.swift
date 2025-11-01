@@ -5,8 +5,8 @@
 //  Created by ChatGPT on 2025-02-15.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 import UIKit
 
 enum ImageLoadPhase {
@@ -17,18 +17,17 @@ enum ImageLoadPhase {
 
 @MainActor
 final class ImageLoader: ObservableObject {
-    
     @Published private(set) var phase: ImageLoadPhase = .empty
-    
+
     private let cache: ImageCacheProtocol
     private var task: Task<Void, Never>?
     private var url: URL?
-    
+
     init(url: URL?, cache: ImageCacheProtocol = ImageCache.shared) {
         self.url = url
         self.cache = cache
     }
-    
+
     func update(url: URL?) {
         guard self.url != url else { return }
         task?.cancel()
@@ -36,24 +35,24 @@ final class ImageLoader: ObservableObject {
         phase = .empty
         self.url = url
     }
-    
+
     func load() {
         guard task == nil else { return }
         guard let url else {
             phase = .failure(nil)
             return
         }
-        
+
         if let cachedImage = cache[url] {
             phase = .success(Image(uiImage: cachedImage))
             return
         }
-        
+
         task = Task {
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 guard !Task.isCancelled else { return }
-                
+
                 guard let image = UIImage(data: data) else {
                     await MainActor.run {
                         self.phase = .failure(nil)
@@ -61,7 +60,7 @@ final class ImageLoader: ObservableObject {
                     }
                     return
                 }
-                
+
                 await MainActor.run {
                     self.cache[url] = image
                     self.phase = .success(Image(uiImage: image))
@@ -76,7 +75,7 @@ final class ImageLoader: ObservableObject {
             }
         }
     }
-    
+
     func cancel() {
         task?.cancel()
         task = nil
@@ -84,13 +83,12 @@ final class ImageLoader: ObservableObject {
 }
 
 struct CachedAsyncImage<Content: View>: View {
-    
     private let url: URL?
     private let content: (ImageLoadPhase) -> Content
-    
+
     @StateObject private var loader: ImageLoader
     @State private var currentURL: URL?
-    
+
     init(
         url: URL?,
         cache: ImageCacheProtocol = ImageCache.shared,
@@ -101,7 +99,7 @@ struct CachedAsyncImage<Content: View>: View {
         _loader = StateObject(wrappedValue: ImageLoader(url: url, cache: cache))
         _currentURL = State(initialValue: url)
     }
-    
+
     var body: some View {
         content(loader.phase)
             .onAppear {

@@ -13,23 +13,22 @@ protocol NetworkServiceProtocol {
 
 final class NetworkService {
     private let session: URLSession
-    
+
     init(session: URLSession = .shared) {
         self.session = session
     }
 }
 
 extension NetworkService: NetworkServiceProtocol {
-    
-    func execute<T: Decodable>(_ request: URLRequest, responseModel: T.Type) async throws -> T {
-        
+    func execute<T: Decodable>(_ request: URLRequest, responseModel _: T.Type) async throws -> T {
         let (data, response) = try await session.data(for: request)
-        
+
         guard let httpResponse = response as? HTTPURLResponse,
-              (200...299).contains(httpResponse.statusCode) else {
+              (200 ... 299).contains(httpResponse.statusCode)
+        else {
             throw NetworkError.invalidResponse
         }
-        
+
         do {
             let decodedResponse = try JSONDecoder().decode(T.self, from: data)
             return decodedResponse
@@ -39,5 +38,3 @@ extension NetworkService: NetworkServiceProtocol {
         }
     }
 }
-
-
