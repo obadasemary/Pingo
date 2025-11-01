@@ -13,7 +13,11 @@ struct FeedView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 16) {
+                    if !viewModel.characters.isEmpty {
+                        CarouselView(characters: viewModel.characters)
+                    }
+
                     ForEach(viewModel.characters, id: \.id) { character in
                         NavigationLink {
                             FeedViewDetails(character: character)
