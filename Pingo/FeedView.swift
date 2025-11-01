@@ -41,7 +41,9 @@ struct FeedView: View {
             .navigationTitle("NewFeeds")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {} label: {
+                    Button {
+                        // TODO: Implement settings action
+                    } label: {
                         Image(systemName: "gear")
                             .font(.headline)
                             .foregroundStyle(.red)
