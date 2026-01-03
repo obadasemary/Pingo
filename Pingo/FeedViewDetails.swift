@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FeedViewDetails: View {
+    
     let character: CharacterResponse
 
     var body: some View {
